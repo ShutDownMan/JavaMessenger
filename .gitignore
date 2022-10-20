@@ -1,4 +1,6 @@
 tests/UDPEchoClient/.settings/
 tests/UDPEchoServer/.settings/
+tests/TCPEchoClient/.settings/
+tests/TCPEchoServer/.settings/
 bin/
 .metadata/
