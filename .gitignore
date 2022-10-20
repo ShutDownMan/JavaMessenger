@@ -1,0 +1,4 @@
+tests/UDPEchoClient/.settings/
+tests/UDPEchoServer/.settings/
+bin/
+.metadata/
