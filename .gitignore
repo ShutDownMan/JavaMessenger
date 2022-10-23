@@ -5,3 +5,4 @@ tests/TCPEchoServer/.settings/
 bin/
 .metadata/
 target/
+.idea/

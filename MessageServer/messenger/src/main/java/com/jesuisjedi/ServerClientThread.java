@@ -114,8 +114,8 @@ class ServerClientThread extends Thread {
         ArrayList<String> recipients = new ArrayList<String>();
         recipients.add(message.sender);
         
-//        sendMessage(new Message(MessageType.CONTROL, tcpServer.getClientNames(), "SERVER", recipients));
-        sendMessage(new Message(MessageType.CONTROL, "LIST", "SERVER", recipients));
+        sendMessage(new Message(MessageType.CONTROL, tcpServer.getClientNames(), "SERVER", recipients));
+//        sendMessage(new Message(MessageType.CONTROL, "LIST", "SERVER", recipients));
     }
 
     private void handleTextMessage(Message message) {
