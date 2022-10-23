@@ -74,4 +74,17 @@ public class AppTest
         /// stop the client
         client.stop();
     }
+
+    /**
+     * Test the client on UDP connection
+     * @throws Exception
+     */
+    @Test
+    public void testUdpClient() throws Exception {
+        // Initialize client
+        UDPClient client = new UDPClient("localhost", 6667);
+
+        // Start the client
+        client.start();
+    }
 }
