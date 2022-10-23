@@ -4,3 +4,4 @@ tests/TCPEchoClient/.settings/
 tests/TCPEchoServer/.settings/
 bin/
 .metadata/
+target/
