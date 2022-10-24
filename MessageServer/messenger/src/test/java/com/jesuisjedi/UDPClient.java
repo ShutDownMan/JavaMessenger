@@ -1,6 +1,5 @@
 package com.jesuisjedi;
 
-import java.io.*;
 import java.net.*;
 
 class UDPClient {
@@ -17,9 +16,6 @@ class UDPClient {
 
         System.out.println("Client started on port " + this.port);
 
-		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(
-				System.in));
-
 		DatagramSocket clientSocket = new DatagramSocket();
 
 		InetAddress IPAddress = InetAddress.getByName(host);
@@ -29,7 +25,8 @@ class UDPClient {
 		byte[] receiveData = new byte[1024];
 
 		System.out.println("Digite o texto a ser enviado ao servidor: ");
-		String sentence = inFromUser.readLine();
+
+		String sentence = "Packet from client";
 		sendData = sentence.getBytes();
 		DatagramPacket sendPacket = new DatagramPacket(sendData,
 				sendData.length, IPAddress, this.port);
