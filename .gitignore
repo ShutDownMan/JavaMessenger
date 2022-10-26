@@ -6,3 +6,10 @@ bin/
 .metadata/
 target/
 .idea/
+/FrontJavaMessenger/JavaMessenger/dist/
+/DDMessageServer/JavaMessengerClient/build/
+/DDMessageServer/JavaMessengerClient/dist/
+/DDMessageServer/JavaMessengerClient/nbproject/private/
+/JavaMessenger/nbproject/
+/JavaMessenger/build/
+.vscode
