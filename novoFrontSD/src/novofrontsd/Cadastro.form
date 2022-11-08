@@ -25,9 +25,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -42,7 +42,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+          <Color blue="e4" green="e9" red="f2" type="rgb"/>
         </Property>
       </Properties>
 
@@ -65,7 +65,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="212" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -96,7 +96,7 @@
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="1c" green="1c" red="19" type="rgb"/>
+          <Color blue="3b" green="22" red="22" type="rgb"/>
         </Property>
       </Properties>
 
@@ -153,7 +153,7 @@
         <Component class="javax.swing.JLabel" name="lblNick">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="0" type="rgb"/>
+              <Color blue="e4" green="e9" red="f2" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nome de Usu&#xe1;rio"/>
           </Properties>
@@ -168,7 +168,7 @@
         <Component class="javax.swing.JTextField" name="jTextField1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="1c" green="1c" red="19" type="rgb"/>
+              <Color blue="3b" green="22" red="22" type="rgb"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -181,7 +181,7 @@
         <Component class="java.awt.Button" name="button1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="c2" green="57" red="7e" type="rgb"/>
+              <Color blue="69" green="4e" red="4a" type="rgb"/>
             </Property>
             <Property name="label" type="java.lang.String" value="Cadastrar"/>
           </Properties>
@@ -189,7 +189,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="0" type="rgb"/>
+              <Color blue="e4" green="e9" red="f2" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Caminho"/>
           </Properties>
@@ -197,7 +197,7 @@
         <Component class="javax.swing.JTextField" name="jTextField2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="1c" green="1c" red="19" type="rgb"/>
+              <Color blue="3b" green="22" red="22" type="rgb"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -215,7 +215,7 @@
               <Color blue="1c" green="1c" red="19" type="rgb"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="0" type="rgb"/>
+              <Color blue="e4" green="e9" red="f2" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Porta"/>
           </Properties>
@@ -223,7 +223,7 @@
         <Component class="javax.swing.JTextField" name="jTextField3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="1c" green="1c" red="19" type="rgb"/>
+              <Color blue="3b" green="22" red="22" type="rgb"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>

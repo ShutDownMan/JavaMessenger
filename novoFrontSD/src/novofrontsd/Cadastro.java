@@ -43,7 +43,7 @@ public class Cadastro extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(242, 233, 228));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/dogs.png"))); // NOI18N
 
@@ -68,37 +68,37 @@ public class Cadastro extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(25, 28, 28));
+        jPanel2.setBackground(new java.awt.Color(34, 34, 59));
 
-        lblNick.setForeground(new java.awt.Color(0, 153, 153));
+        lblNick.setForeground(new java.awt.Color(242, 233, 228));
         lblNick.setText("Nome de Usuário");
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.setBackground(new java.awt.Color(25, 28, 28));
+        jTextField1.setBackground(new java.awt.Color(34, 34, 59));
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
         jTextField1.setBorder(null);
 
-        button1.setBackground(new java.awt.Color(126, 87, 194));
+        button1.setBackground(new java.awt.Color(74, 78, 105));
         button1.setLabel("Cadastrar");
 
-        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel1.setForeground(new java.awt.Color(242, 233, 228));
         jLabel1.setText("Caminho");
 
-        jTextField2.setBackground(new java.awt.Color(25, 28, 28));
+        jTextField2.setBackground(new java.awt.Color(34, 34, 59));
         jTextField2.setForeground(new java.awt.Color(255, 255, 255));
         jTextField2.setBorder(null);
 
         jLabel3.setBackground(new java.awt.Color(25, 28, 28));
-        jLabel3.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel3.setForeground(new java.awt.Color(242, 233, 228));
         jLabel3.setText("Porta");
 
-        jTextField3.setBackground(new java.awt.Color(25, 28, 28));
+        jTextField3.setBackground(new java.awt.Color(34, 34, 59));
         jTextField3.setForeground(new java.awt.Color(255, 255, 255));
         jTextField3.setBorder(null);
 
@@ -153,9 +153,9 @@ public class Cadastro extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,6 +198,8 @@ public class Cadastro extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Cadastro().setVisible(true);
+                new Chat().setVisible(true);
+
             }
         });
     }
