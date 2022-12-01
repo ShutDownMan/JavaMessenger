@@ -1,16 +1,14 @@
-package com.jesuisjedi;
+package com.jesuisjedi.server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class ServerUDPClient {
-    private String address;
     private int port;
     private InetAddress ipAddress;
     private String name;
 
-    public ServerUDPClient(String address, int port, InetAddress ipAddress) throws UnknownHostException {
-        this.address = address;
+    public ServerUDPClient(InetAddress ipAddress, int port) throws UnknownHostException {
         this.port = port;
         this.ipAddress = ipAddress;
     }
@@ -20,7 +18,7 @@ public class ServerUDPClient {
     }
 
     public String getAddress() {
-        return address;
+        return ipAddress.getHostAddress();
     }
 
     public InetAddress getIpAddress() {
