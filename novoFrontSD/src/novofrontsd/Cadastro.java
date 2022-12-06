@@ -32,13 +32,13 @@ public class Cadastro extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblNick = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
-        button1 = new java.awt.Button();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        usernameField = new javax.swing.JTextField();
+        cadastrarButton = new java.awt.Button();
+        lblCaminho = new javax.swing.JLabel();
+        caminhoField = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        lblPorta = new javax.swing.JLabel();
+        portaField = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,27 +80,32 @@ public class Cadastro extends javax.swing.JFrame {
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.setBackground(new java.awt.Color(34, 34, 59));
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setBorder(null);
+        usernameField.setBackground(new java.awt.Color(34, 34, 59));
+        usernameField.setForeground(new java.awt.Color(255, 255, 255));
+        usernameField.setBorder(null);
 
-        button1.setBackground(new java.awt.Color(74, 78, 105));
-        button1.setLabel("Cadastrar");
+        cadastrarButton.setBackground(new java.awt.Color(74, 78, 105));
+        cadastrarButton.setLabel("Cadastrar");
+        cadastrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarButtonActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setForeground(new java.awt.Color(242, 233, 228));
-        jLabel1.setText("Caminho");
+        lblCaminho.setForeground(new java.awt.Color(242, 233, 228));
+        lblCaminho.setText("Caminho");
 
-        jTextField2.setBackground(new java.awt.Color(34, 34, 59));
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setBorder(null);
+        caminhoField.setBackground(new java.awt.Color(34, 34, 59));
+        caminhoField.setForeground(new java.awt.Color(255, 255, 255));
+        caminhoField.setBorder(null);
 
-        jLabel3.setBackground(new java.awt.Color(25, 28, 28));
-        jLabel3.setForeground(new java.awt.Color(242, 233, 228));
-        jLabel3.setText("Porta");
+        lblPorta.setBackground(new java.awt.Color(25, 28, 28));
+        lblPorta.setForeground(new java.awt.Color(242, 233, 228));
+        lblPorta.setText("Porta");
 
-        jTextField3.setBackground(new java.awt.Color(34, 34, 59));
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField3.setBorder(null);
+        portaField.setBackground(new java.awt.Color(34, 34, 59));
+        portaField.setForeground(new java.awt.Color(255, 255, 255));
+        portaField.setBorder(null);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -110,15 +115,15 @@ public class Cadastro extends javax.swing.JFrame {
                 .addContainerGap(66, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jSeparator3)
-                    .addComponent(jTextField3)
-                    .addComponent(jLabel3)
+                    .addComponent(portaField)
+                    .addComponent(lblPorta)
                     .addComponent(jSeparator2)
-                    .addComponent(jTextField2)
-                    .addComponent(jLabel1)
+                    .addComponent(caminhoField)
+                    .addComponent(lblCaminho)
                     .addComponent(lblNick)
                     .addComponent(jSeparator1)
-                    .addComponent(jTextField1)
-                    .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                    .addComponent(usernameField)
+                    .addComponent(cadastrarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
                 .addGap(53, 53, 53))
         );
         jPanel2Layout.setVerticalGroup(
@@ -127,23 +132,23 @@ public class Cadastro extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addComponent(lblNick)
                 .addGap(12, 12, 12)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(lblCaminho)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(caminhoField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jLabel3)
+                .addComponent(lblPorta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(portaField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cadastrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
 
@@ -166,6 +171,21 @@ public class Cadastro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
+        Chat telaChat = new Chat();
+        telaChat.setUserName(usernameField.getText());
+        telaChat.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_cadastrarButtonActionPerformed
+
+    public String getCaminhoCadastro(){
+        return caminhoField.getText();
+    }
+    
+    public String getPorta(){
+        return portaField.getText();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -198,26 +218,25 @@ public class Cadastro extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Cadastro().setVisible(true);
-                new Chat().setVisible(true);
-
+                ItemUser lari = new ItemUser("Lari");
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button button1;
-    private javax.swing.JLabel jLabel1;
+    private java.awt.Button cadastrarButton;
+    private javax.swing.JTextField caminhoField;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel lblCaminho;
     private javax.swing.JLabel lblNick;
+    private javax.swing.JLabel lblPorta;
+    private javax.swing.JTextField portaField;
+    private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }

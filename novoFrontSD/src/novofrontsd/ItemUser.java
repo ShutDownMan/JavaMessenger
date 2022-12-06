@@ -1,5 +1,7 @@
 package novofrontsd;
 
+import java.io.File;
+
 /**
  *
  * @author laril
@@ -7,12 +9,24 @@ package novofrontsd;
 public class ItemUser {
     
     private String nomeUser;
+    private String caminhoIcon;
     
-    public String getText(){
+    public ItemUser(String nome){
+        String caminho = new File("").getAbsolutePath();
+        caminho += "\\src\\resources\\iconUsers2.png";
+        this.nomeUser = nome;
+        this.caminhoIcon = caminho;
+    }
+    
+    public String getNome(){
         return nomeUser;
     }
     
-    public void setText(String nome){
+    public String getCaminho(){
+        return caminhoIcon;
+    }
+    
+    public void setNome(String nome){
         this.nomeUser = nome;
     }
 }
