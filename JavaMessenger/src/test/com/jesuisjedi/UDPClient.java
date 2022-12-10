@@ -1,8 +1,11 @@
 package test.com.jesuisjedi;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.ArrayList;
@@ -14,6 +17,7 @@ class UDPClient {
 
     private String host;
     private int port;
+	private byte[] buf = new byte[5000];
 
     public UDPClient(String host, int port) throws SocketException, UnknownHostException {
         this.host = host;
@@ -33,7 +37,7 @@ class UDPClient {
 
 		System.out.println("Digite o texto a ser enviado ao servidor: ");
 
-		Message message = new Message(MessageType.CONTROL, "CONNECT", "jesuisjedi", new ArrayList<String>());;
+		Message message = new Message(MessageType.CONTROL, "CONNECT", "jesuisjedi", new ArrayList<String>());
 
 		// DatagramPacket sendPacket = createPacket(IPAddress, message);
 		DatagramPacket sendPacket = createPacket(IPAddress, message);
@@ -46,11 +50,22 @@ class UDPClient {
 		clientSocket.receive(receivePacket);
 		System.out.println("Pacote UDP recebido...");
 
-		String modifiedSentence = new String(receivePacket.getData());
+		message = parsePacket(receivePacket);
 
-		System.out.println("Texto recebido do servidor:" + modifiedSentence);
+		System.out.println("Texto recebido do servidor:" + message.toString());
+
 		clientSocket.close();
-		System.out.println("Socket cliente fechado!");
+
+		// String modifiedSentence = new String(receivePacket.getData());
+
+		// System.out.println("Texto recebido do servidor:" + modifiedSentence);
+
+		// Message disconnectionMessage = new Message(MessageType.CONTROL, "DISCONNECT", "jesuisjedi", new ArrayList<String>());
+		// sendPacket = createPacket(IPAddress, disconnectionMessage);
+
+		// clientSocket.send(sendPacket);
+		// clientSocket.close();
+		// System.out.println("Socket cliente fechado!");
 	}
 	
 	private DatagramPacket createPacket(InetAddress address, Message message) throws IOException {
@@ -66,4 +81,22 @@ class UDPClient {
 
 		return packet;
 	}
+
+	    /**
+     * Parse a packet to a message
+     * @param packet
+     * @return receveid message on packet
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private Message parsePacket(DatagramPacket packet) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream byteStream = new ByteArrayInputStream(buf);
+		System.out.println("Parsing packet");
+        ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
+		
+        Message message = (Message) is.readObject();
+        is.close();
+
+        return message;
+    }
 }

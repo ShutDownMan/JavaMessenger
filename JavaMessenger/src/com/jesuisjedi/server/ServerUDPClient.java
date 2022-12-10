@@ -6,7 +6,7 @@ import java.net.UnknownHostException;
 public class ServerUDPClient {
     private int port;
     private InetAddress ipAddress;
-    private String name;
+    private String username;
 
     public ServerUDPClient(InetAddress ipAddress, int port) throws UnknownHostException {
         this.port = port;
@@ -25,7 +25,7 @@ public class ServerUDPClient {
         return ipAddress;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 }
