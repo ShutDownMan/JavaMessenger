@@ -57,21 +57,10 @@ public class Chat extends javax.swing.JFrame {
      */
     public Chat() {
         initComponents();
-        /*
-        try { 
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); 
-        } catch (Exception ex) { 
-            ex.printStackTrace(); 
-        }
-        */
         this.listaUsers.setCellRenderer(new ListaUsersCellRenderer());
         ArrayList users = new ArrayList<ItemUser>();
-        ItemUser caio = new ItemUser("Caio");
-        ItemUser simone = new ItemUser("Simone");
-        ItemUser luiz = new ItemUser("Luiz");
-        users.add(caio);
-        users.add(simone);
-        users.add(luiz);
+        ItemUser broadcast = new ItemUser("Chat Geral");
+        users.add(broadcast);
         this.updateList(users);
     }
     
