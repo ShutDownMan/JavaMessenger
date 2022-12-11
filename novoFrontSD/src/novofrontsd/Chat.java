@@ -64,6 +64,8 @@ public class Chat extends javax.swing.JFrame {
         this.updateList(users);
     }
     
+    
+    
     // Update the news list.
     private void updateList(ArrayList<ItemUser> users) {
         // Cleaning the list.
@@ -105,6 +107,11 @@ public class Chat extends javax.swing.JFrame {
         listaUsers = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         panelMainUser.setBackground(new java.awt.Color(34, 34, 59));
 
@@ -271,6 +278,11 @@ public class Chat extends javax.swing.JFrame {
             this.tabbedPaneChat.add(nome, novoPanel);
         }
     }//GEN-LAST:event_listaUsersMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // Evento quando a janela do chat é fechada
+        System.out.println("Fechou");
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

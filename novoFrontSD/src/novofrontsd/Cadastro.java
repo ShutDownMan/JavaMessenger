@@ -4,6 +4,7 @@
  */
 package novofrontsd;
 
+
 /**
  *
  * @author laril
@@ -40,6 +41,9 @@ public class Cadastro extends javax.swing.JFrame {
         lblPorta = new javax.swing.JLabel();
         portaField = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
+        slider = new javax.swing.JSlider();
+        labelTCP = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,11 +111,30 @@ public class Cadastro extends javax.swing.JFrame {
         portaField.setForeground(new java.awt.Color(255, 255, 255));
         portaField.setBorder(null);
 
+        slider.setMaximum(1);
+        slider.setValue(0);
+        slider.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        slider.setEnabled(false);
+        slider.setFocusCycleRoot(true);
+        slider.setFocusable(false);
+        slider.setRequestFocusEnabled(false);
+        slider.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sliderMouseClicked(evt);
+            }
+        });
+
+        labelTCP.setForeground(new java.awt.Color(255, 255, 255));
+        labelTCP.setText("TCP");
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("UDP");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(66, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jSeparator3)
@@ -123,7 +146,13 @@ public class Cadastro extends javax.swing.JFrame {
                     .addComponent(lblNick)
                     .addComponent(jSeparator1)
                     .addComponent(usernameField)
-                    .addComponent(cadastrarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                    .addComponent(cadastrarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(labelTCP)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(slider, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)))
                 .addGap(53, 53, 53))
         );
         jPanel2Layout.setVerticalGroup(
@@ -147,8 +176,15 @@ public class Cadastro extends javax.swing.JFrame {
                 .addComponent(portaField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                .addComponent(cadastrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelTCP, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(22, 22, 22)
+                        .addComponent(cadastrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(slider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
         );
 
@@ -172,11 +208,28 @@ public class Cadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
+        // Verificação do valor do slider
+        if(slider.getValue() == 1){
+            System.out.println("UDP");
+        }
+        else{
+            System.out.println("TCP");
+        }
+        
         Chat telaChat = new Chat();
         telaChat.setUserName(usernameField.getText());
         telaChat.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_cadastrarButtonActionPerformed
+
+    private void sliderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sliderMouseClicked
+        if(slider.getValue() == 1){
+            slider.setValue(0);
+        }
+        else{
+            slider.setValue(1);
+        }
+    }//GEN-LAST:event_sliderMouseClicked
 
     public String getCaminhoCadastro(){
         return caminhoField.getText();
@@ -227,16 +280,19 @@ public class Cadastro extends javax.swing.JFrame {
     private java.awt.Button cadastrarButton;
     private javax.swing.JTextField caminhoField;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel labelTCP;
     private javax.swing.JLabel lblCaminho;
     private javax.swing.JLabel lblNick;
     private javax.swing.JLabel lblPorta;
     private javax.swing.JTextField portaField;
+    private javax.swing.JSlider slider;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }
