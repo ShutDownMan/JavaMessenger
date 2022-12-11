@@ -8,9 +8,10 @@ public class ServerUDPClient {
     private InetAddress ipAddress;
     private String username;
 
-    public ServerUDPClient(InetAddress ipAddress, int port) throws UnknownHostException {
+    public ServerUDPClient(InetAddress ipAddress, int port, String username) throws UnknownHostException {
         this.port = port;
         this.ipAddress = ipAddress;
+        this.username = username;
     }
 
     public int getPort() {

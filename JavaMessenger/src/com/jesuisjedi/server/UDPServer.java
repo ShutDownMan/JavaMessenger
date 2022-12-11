@@ -43,53 +43,14 @@ public class UDPServer {
             System.out.println("Received packet from " + packet.getAddress().getHostAddress() + ":" + packet.getPort());
 
             // Parse packet to message
-            Message message = parsePacket(packet);
+            Message message = parsePacket();
 
             System.out.println("Received message: " + message.toString());
             handleMessage(packet, message);
-
-            // String received = new String(packet.getData(), 0, packet.getLength());
-
-            // if (received.equals("end")) {
-            //     running = false;
-            //     continue;
-            // }
-            // this.socket.send(packet);
         }
         
         this.socket.close();
     }
-
-    /**
-     * Parse a packet to a message
-     * @param packet
-     * @return receveid message on packet
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
-    private Message parsePacket(DatagramPacket packet) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream byteStream = new ByteArrayInputStream(buf);
-        ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
-
-        Message message = (Message) is.readObject();
-        is.close();
-
-        return message;
-    }
-
-    private DatagramPacket createPacket(InetAddress address, int port, Message message) throws IOException {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(baos));
-		oos.flush();
-		oos.writeObject(message);
-		oos.flush();
-		byte[] data = baos.toByteArray();
-		oos.close();
-
-		DatagramPacket packet = new DatagramPacket(data, data.length, address, port);
-
-		return packet;
-	}
 
     /**
      * Parse the message received on UDP packet
@@ -100,7 +61,7 @@ public class UDPServer {
             case "CONNECT":
                 /// set client name
                 System.out.println("Conexão recebida!");
-                handleConnection(packet);
+                handleConnection(packet, message);
                 printClients();
                 break;
             case "DISCONNECT":
@@ -126,18 +87,20 @@ public class UDPServer {
      * Add new ServerUDPClient at clients list
      * @param DatagramPacket packet
      */
-    private void handleConnection(DatagramPacket packet) throws UnknownHostException {
-       ServerUDPClient newClient = new ServerUDPClient(packet.getAddress(), packet.getPort());
+    private void handleConnection(DatagramPacket packet, Message message) throws UnknownHostException {
+       ServerUDPClient newClient = new ServerUDPClient(packet.getAddress(), packet.getPort(), message.sender);
        clients.add(newClient);
 
-        /// send disconnect message to client
-        sendMessage(new Message(MessageType.CONTROL, "CONNECTED", "SERVER", null), packet.getAddress(), packet.getPort());
+        Message connectedMessage = new Message(MessageType.CONTROL, "CONNECTED", "SERVER", null);
+        System.out.println("Sending connected message" + connectedMessage.toString());
+
+        sendMessage(connectedMessage, packet.getAddress(), packet.getPort());
     }
 
     private void handleDisconnection(DatagramPacket packet) {
         clients.removeIf(client -> client.getAddress().equals(packet.getAddress().getHostAddress()));
 
-        /// send disconnect message to client
+        /// send disconnet message to client
         sendMessage(new Message(MessageType.CONTROL, "DISCONNECTED", "SERVER", null), packet.getAddress(), packet.getPort());
     }
 
@@ -150,13 +113,6 @@ public class UDPServer {
         sendMessage(new Message(MessageType.CONTROL, connectedClients, "SERVER", message.recipients), packet.getAddress(), packet.getPort());
     }
 
-    private void printClients() {
-        System.out.println("Clients: ");
-        for (ServerUDPClient client : clients) {
-            System.out.println(client.getAddress() + ":" + client.getPort());
-        }
-    }
-
     /**
      * Send message to recipients list
      * @param packet
@@ -166,7 +122,7 @@ public class UDPServer {
         for (String username : message.recipients) {
             for (ServerUDPClient serverClient : clients) {
                 if (serverClient.getUsername().equals(username)) {
-                    sendMessage(message, serverClient.getIpAddress(), serverClient.getPort());   
+                    sendMessage(message, serverClient.getIpAddress(), serverClient.getPort());
                 }
             }
         }
@@ -181,13 +137,42 @@ public class UDPServer {
         }
     }
 
-    // TO DO: Get clients list from UDP packet message on handleMessage
-    public void broadcast() throws IOException {
+    /**
+     * Parse a packet to a message
+     * @param packet
+     * @return receveid message on packet
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private Message parsePacket() throws IOException, ClassNotFoundException {
+        ByteArrayInputStream byteStream = new ByteArrayInputStream(buf);
+        ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
+		
+        Message message = (Message) is.readObject();
+        is.close();
+
+        return message;
+    }
+
+    private DatagramPacket createPacket(InetAddress address, int port, Message message) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(baos));
+		oos.flush();
+		oos.writeObject(message);
+		oos.flush();
+		byte[] data = baos.toByteArray();
+		oos.close();
+
+		DatagramPacket packet = new DatagramPacket(data, data.length, address, port);
+
+		return packet;
+	}
+
+
+    private void printClients() {
+        System.out.println("Clients: ");
         for (ServerUDPClient client : clients) {
-            String message = "Hello from server";
-            
-            DatagramPacket packet = new DatagramPacket(message.getBytes(), message.getBytes().length, client.getIpAddress(), client.getPort());
-            this.socket.send(packet);
+            System.out.println(client.getAddress() + ":" + client.getPort());
         }
     }
 }

@@ -1,18 +1,24 @@
 package test.com.jesuisjedi;
 
-import java.net.SocketException;
-import java.net.UnknownHostException;
-
 import org.junit.Test;
 
 public class UDPTest {
+
+	private UDPClient client;
+	
+	public UDPTest() throws Exception {
+		client = new UDPClient("localhost", 6667);
+	}
 	
 	@Test
-	public void testUdpClient() throws Exception {
-		// Initialize client
-        UDPClient client = new UDPClient("localhost", 6667);
-
+	public void testUdpConnection() throws Exception {
         // Start the client
-        client.start();
+        client.connect();
+		client.disconnet();
+	}
+
+	@Test
+	public void testListUsers() throws Exception {
+		client.listUsers();
 	}
 }
