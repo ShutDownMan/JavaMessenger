@@ -9,17 +9,13 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -196,16 +192,15 @@ public class Chat extends javax.swing.JFrame {
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(262, 412));
-        jScrollPane1.setWheelScrollingEnabled(false);
 
         listaUsers.setBackground(new java.awt.Color(51, 51, 89));
         listaUsers.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         listaUsers.setForeground(new java.awt.Color(255, 255, 255));
         listaUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listaUsers.setPreferredSize(new java.awt.Dimension(262, 412));
         listaUsers.setSelectionBackground(new java.awt.Color(119, 130, 209));
         listaUsers.setSelectionForeground(new java.awt.Color(0, 0, 0));
         listaUsers.setValueIsAdjusting(true);
+        listaUsers.setVisibleRowCount(7);
         listaUsers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listaUsersMouseClicked(evt);
@@ -217,12 +212,12 @@ public class Chat extends javax.swing.JFrame {
         panelUsers.setLayout(panelUsersLayout);
         panelUsersLayout.setHorizontalGroup(
             panelUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         panelUsersLayout.setVerticalGroup(
             panelUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelUsersLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
