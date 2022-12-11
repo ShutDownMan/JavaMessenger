@@ -1,4 +1,4 @@
-package com.jesuisjedi.server;
+package server;
 
 import java.io.IOException;
 

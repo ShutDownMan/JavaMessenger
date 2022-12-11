@@ -4,6 +4,8 @@
  */
 package novofrontsd;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author laril
@@ -172,10 +174,16 @@ public class Cadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
-        Chat telaChat = new Chat();
-        telaChat.setUserName(usernameField.getText());
-        telaChat.setVisible(true);
-        this.setVisible(false);
+        try {
+            UDPClient udpClient = new UDPClient(this.getCaminhoCadastro(), Integer.parseInt(this.getPorta()));
+            udpClient.connect();
+            Chat telaChat = new Chat(udpClient);
+            telaChat.setUserName(usernameField.getText());
+            telaChat.setVisible(true);
+            this.setVisible(false);
+        } catch ( Exception e ) {
+           JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_cadastrarButtonActionPerformed
 
     public String getCaminhoCadastro(){

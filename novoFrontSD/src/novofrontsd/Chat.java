@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -28,6 +30,7 @@ import javax.swing.table.DefaultTableModel;
 public class Chat extends javax.swing.JFrame {
     
     private ArrayList<panelChat> tabs = new ArrayList<>();
+    public UDPClient udpClient;
     
     private class ListaUsersCellRenderer extends DefaultListCellRenderer {
         public Component getListCellRendererComponent(JList<?> list,
@@ -55,15 +58,28 @@ public class Chat extends javax.swing.JFrame {
     /**
      * Creates new form Chat
      */
-    public Chat() {
+    public Chat(UDPClient udpClient) throws Exception {
+        this.udpClient = udpClient;
         initComponents();
         this.listaUsers.setCellRenderer(new ListaUsersCellRenderer());
         ArrayList users = new ArrayList<ItemUser>();
         ItemUser broadcast = new ItemUser("Chat Geral");
         users.add(broadcast);
+        users.addAll(getUsersList());
         this.updateList(users);
     }
     
+    private ArrayList<ItemUser> getUsersList() throws Exception {
+        ArrayList<String> users = udpClient.listUsers();
+        ArrayList<ItemUser> usersList = new ArrayList<>();
+
+        for(String user : users) {
+            usersList.add(new ItemUser(user));
+        }
+
+        return usersList;
+    }
+
     // Update the news list.
     private void updateList(ArrayList<ItemUser> users) {
         // Cleaning the list.
@@ -90,158 +106,158 @@ public class Chat extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() throws Exception {
 
-        panelMainUser = new javax.swing.JPanel();
-        userImage = new javax.swing.JLabel();
-        userName = new javax.swing.JLabel();
-        panelChatArea = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        chatField = new javax.swing.JTextArea();
-        iconSend = new javax.swing.JLabel();
-        tabbedPaneChat = new javax.swing.JTabbedPane();
-        panelUsers = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaUsers = new javax.swing.JList<>();
+            panelMainUser = new javax.swing.JPanel();
+            userImage = new javax.swing.JLabel();
+            userName = new javax.swing.JLabel();
+            panelChatArea = new javax.swing.JPanel();
+            jScrollPane4 = new javax.swing.JScrollPane();
+            chatField = new javax.swing.JTextArea();
+            iconSend = new javax.swing.JLabel();
+            tabbedPaneChat = new javax.swing.JTabbedPane();
+            panelUsers = new javax.swing.JPanel();
+            jScrollPane1 = new javax.swing.JScrollPane();
+            listaUsers = new javax.swing.JList<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelMainUser.setBackground(new java.awt.Color(34, 34, 59));
+            panelMainUser.setBackground(new java.awt.Color(34, 34, 59));
 
-        userImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon2.png"))); // NOI18N
+            userImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon2.png"))); // NOI18N
 
-        userName.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        userName.setForeground(new java.awt.Color(242, 233, 228));
-        userName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        userName.setText("Lari");
+            userName.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+            userName.setForeground(new java.awt.Color(242, 233, 228));
+            userName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+            userName.setText("Lari");
 
-        javax.swing.GroupLayout panelMainUserLayout = new javax.swing.GroupLayout(panelMainUser);
-        panelMainUser.setLayout(panelMainUserLayout);
-        panelMainUserLayout.setHorizontalGroup(
-            panelMainUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMainUserLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(userImage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(userName)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelMainUserLayout.setVerticalGroup(
-            panelMainUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMainUserLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelMainUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainUserLayout.createSequentialGroup()
-                        .addComponent(userImage)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainUserLayout.createSequentialGroup()
-                        .addComponent(userName)
-                        .addGap(23, 23, 23))))
-        );
+            javax.swing.GroupLayout panelMainUserLayout = new javax.swing.GroupLayout(panelMainUser);
+            panelMainUser.setLayout(panelMainUserLayout);
+            panelMainUserLayout.setHorizontalGroup(
+                panelMainUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelMainUserLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(userImage)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(userName)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
+            panelMainUserLayout.setVerticalGroup(
+                panelMainUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelMainUserLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelMainUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainUserLayout.createSequentialGroup()
+                            .addComponent(userImage)
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainUserLayout.createSequentialGroup()
+                            .addComponent(userName)
+                            .addGap(23, 23, 23))))
+            );
 
-        panelChatArea.setBackground(new java.awt.Color(34, 34, 59));
+            panelChatArea.setBackground(new java.awt.Color(34, 34, 59));
 
-        chatField.setBackground(new java.awt.Color(127, 131, 160));
-        chatField.setColumns(20);
-        chatField.setLineWrap(true);
-        chatField.setRows(5);
-        chatField.setPreferredSize(new java.awt.Dimension(234, 92));
-        jScrollPane4.setViewportView(chatField);
+            chatField.setBackground(new java.awt.Color(127, 131, 160));
+            chatField.setColumns(20);
+            chatField.setLineWrap(true);
+            chatField.setRows(5);
+            chatField.setPreferredSize(new java.awt.Dimension(234, 92));
+            jScrollPane4.setViewportView(chatField);
 
-        iconSend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/send2 (1).png"))); // NOI18N
-        iconSend.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                iconSendMouseClicked(evt);
-            }
-        });
+            iconSend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/send2 (1).png"))); // NOI18N
+            iconSend.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    iconSendMouseClicked(evt);
+                }
+            });
 
-        tabbedPaneChat.setBackground(new java.awt.Color(34, 34, 59));
-        tabbedPaneChat.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+            tabbedPaneChat.setBackground(new java.awt.Color(34, 34, 59));
+            tabbedPaneChat.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
 
-        javax.swing.GroupLayout panelChatAreaLayout = new javax.swing.GroupLayout(panelChatArea);
-        panelChatArea.setLayout(panelChatAreaLayout);
-        panelChatAreaLayout.setHorizontalGroup(
-            panelChatAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelChatAreaLayout.createSequentialGroup()
-                .addGroup(panelChatAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(tabbedPaneChat)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelChatAreaLayout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(iconSend)))
-                .addGap(0, 10, Short.MAX_VALUE))
-        );
-        panelChatAreaLayout.setVerticalGroup(
-            panelChatAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelChatAreaLayout.createSequentialGroup()
-                .addComponent(tabbedPaneChat, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-                .addGroup(panelChatAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelChatAreaLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(iconSend))
-                    .addGroup(panelChatAreaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
+            javax.swing.GroupLayout panelChatAreaLayout = new javax.swing.GroupLayout(panelChatArea);
+            panelChatArea.setLayout(panelChatAreaLayout);
+            panelChatAreaLayout.setHorizontalGroup(
+                panelChatAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelChatAreaLayout.createSequentialGroup()
+                    .addGroup(panelChatAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tabbedPaneChat)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelChatAreaLayout.createSequentialGroup()
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(iconSend)))
+                    .addGap(0, 10, Short.MAX_VALUE))
+            );
+            panelChatAreaLayout.setVerticalGroup(
+                panelChatAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelChatAreaLayout.createSequentialGroup()
+                    .addComponent(tabbedPaneChat, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                    .addGroup(panelChatAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelChatAreaLayout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(iconSend))
+                        .addGroup(panelChatAreaLayout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            );
 
-        panelUsers.setBackground(new java.awt.Color(34, 34, 59));
+            panelUsers.setBackground(new java.awt.Color(34, 34, 59));
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(262, 412));
-        jScrollPane1.setWheelScrollingEnabled(false);
+            jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+            jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            jScrollPane1.setPreferredSize(new java.awt.Dimension(262, 412));
+            jScrollPane1.setWheelScrollingEnabled(false);
 
-        listaUsers.setBackground(new java.awt.Color(51, 51, 89));
-        listaUsers.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        listaUsers.setForeground(new java.awt.Color(255, 255, 255));
-        listaUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listaUsers.setPreferredSize(new java.awt.Dimension(262, 412));
-        listaUsers.setSelectionBackground(new java.awt.Color(119, 130, 209));
-        listaUsers.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        listaUsers.setValueIsAdjusting(true);
-        listaUsers.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaUsersMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(listaUsers);
+            listaUsers.setBackground(new java.awt.Color(51, 51, 89));
+            listaUsers.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+            listaUsers.setForeground(new java.awt.Color(255, 255, 255));
+            listaUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+            listaUsers.setPreferredSize(new java.awt.Dimension(262, 412));
+            listaUsers.setSelectionBackground(new java.awt.Color(119, 130, 209));
+            listaUsers.setSelectionForeground(new java.awt.Color(0, 0, 0));
+            listaUsers.setValueIsAdjusting(true);
+            listaUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    listaUsersMouseClicked(evt);
+                }
+            });
+            jScrollPane1.setViewportView(listaUsers);
 
-        javax.swing.GroupLayout panelUsersLayout = new javax.swing.GroupLayout(panelUsers);
-        panelUsers.setLayout(panelUsersLayout);
-        panelUsersLayout.setHorizontalGroup(
-            panelUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        panelUsersLayout.setVerticalGroup(
-            panelUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelUsersLayout.createSequentialGroup()
+            javax.swing.GroupLayout panelUsersLayout = new javax.swing.GroupLayout(panelUsers);
+            panelUsers.setLayout(panelUsersLayout);
+            panelUsersLayout.setHorizontalGroup(
+                panelUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+            );
+            panelUsersLayout.setVerticalGroup(
+                panelUsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelUsersLayout.createSequentialGroup()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap())
+            );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(panelUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelMainUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelChatArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelChatArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createSequentialGroup()
                     .addComponent(panelUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelMainUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(panelChatArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelChatArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(panelMainUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                    .addGap(0, 0, 0)
+                    .addComponent(panelMainUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            );
+            pack();
 
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void iconSendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconSendMouseClicked
@@ -251,6 +267,7 @@ public class Chat extends javax.swing.JFrame {
        String title = this.tabbedPaneChat.getTitleAt(index);
        panelChat panel = encontrarPanelUser(title);
        panel.setChat(this.chatField.getText());
+       udpClient.sendMessage();
     }//GEN-LAST:event_iconSendMouseClicked
 
     private panelChat encontrarPanelUser(String nome){
@@ -275,7 +292,7 @@ public class Chat extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -301,7 +318,7 @@ public class Chat extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            public void run(){
             }
         });
     }

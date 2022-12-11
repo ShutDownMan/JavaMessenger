@@ -1,4 +1,4 @@
-package com.jesuisjedi.server;
+package server;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -14,8 +14,8 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-import com.jesuisjedi.message.Message;
-import com.jesuisjedi.message.MessageType;
+import message.Message;
+import message.MessageType;
 
 public class UDPServer {
 
@@ -76,6 +76,7 @@ public class UDPServer {
                 handleChatMessage(packet, message);
                 break;
             case "LIST":
+                System.out.println("Listagem recebida");
                 handleListMessage(packet, message);
                 break;
         }
@@ -108,6 +109,7 @@ public class UDPServer {
             connectedClients.add(client.getUsername());
         }
         
+        System.out.println("Sending list: " + connectedClients.toString());
         sendMessage(new Message(MessageType.CONTROL, connectedClients, "SERVER", message.recipients), packet.getAddress(), packet.getPort());
     }
 
