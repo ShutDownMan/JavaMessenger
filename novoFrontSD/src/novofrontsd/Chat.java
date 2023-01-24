@@ -65,15 +65,11 @@ public class Chat extends javax.swing.JFrame {
         this.udpClient = udpClient;
         initComponents();
         this.listaUsers.setCellRenderer(new ListaUsersCellRenderer());
-        // ArrayList users = new ArrayList<ItemUser>();
-        // ItemUser broadcast = new ItemUser("Chat Geral");
-        // users.add(broadcast);
-        // users.addAll(getUsersList());
-        // this.updateList(users);
 
         // Start a thread to receive chat messages
         udpClient.tabs = tabs;
         udpClient.listaUsers = listaUsers;
+        udpClient.tabbedPaneChat = this.tabbedPaneChat;
         new Thread(udpClient).start();
     }
 

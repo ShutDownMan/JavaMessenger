@@ -12,7 +12,7 @@ public class App
     {
         /// initialize the server
         // TCPServer server = new TCPServer(6666);
-        UDPServer udpServer = new UDPServer(6667);
+        UDPServer udpServer = new UDPServer(6665);
 
         /// start the server
         // server.start();

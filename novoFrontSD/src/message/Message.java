@@ -1,6 +1,7 @@
 package message;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /*
@@ -11,12 +12,14 @@ public class Message implements Serializable {
     public Object payload;
     public String sender;
     public ArrayList<String> recipients;
+    public LocalTime time;
 
     public Message(MessageType type, Object payload, String sender, ArrayList<String> recipients) {
         this.type = type;
         this.payload = payload;
         this.sender = sender;
         this.recipients = recipients;
+        this.time = LocalTime.now();
     }
 
     @Override

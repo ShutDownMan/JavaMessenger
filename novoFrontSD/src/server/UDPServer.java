@@ -159,7 +159,7 @@ public class UDPServer {
 
         for (String username : message.recipients) {
             for (ServerUDPClient serverClient : clients) {
-                if (broadcast || serverClient.getUsername().equals(username)) {
+                if ((broadcast && !serverClient.getUsername().equals(message.sender)) || serverClient.getUsername().equals(username)) {
                     System.out.println("Enviando mensagem para " + username);
                     sendMessage(message, serverClient.getIpAddress(), serverClient.getPort());
                 }

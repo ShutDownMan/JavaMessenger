@@ -26,6 +26,7 @@ class UDPClient implements Runnable {
 	public String username;
 	public ArrayList<panelChat> tabs;
     public JList<ItemUser> listaUsers;
+	public javax.swing.JTabbedPane tabbedPaneChat;
 
 
     public UDPClient(String host, int port, String username) throws SocketException, UnknownHostException {
@@ -118,18 +119,25 @@ class UDPClient implements Runnable {
 			if (receivedMessage.type == MessageType.CONTROL) {
 				if (receivedMessage.payload.equals("LIST")) {
 					ArrayList<String> users = (ArrayList<String>) receivedMessage.recipients;
-					ArrayList<ItemUser> usersList = new ArrayList<>();
-					for(String user : users) {
-						usersList.add(new ItemUser(user));
-						System.out.println(user);
-					}
-					this.updateList(usersList);
+					this.updateList(this.mountUsersList(users));
 				}
 			}
 
-			panelChat user = encontrarPanelUser(receivedMessage.sender);
-			if (user != null) {
-				user.setChat(receivedMessage.payload.toString());
+			if (!receivedMessage.sender.equals("SERVER")) {
+				String panelUser;
+				if (receivedMessage.recipients.get(0).equals("Chat Geral")) {
+					panelUser = "Chat Geral";
+				} else {
+					panelUser = receivedMessage.sender;
+				}
+
+				panelChat panel = encontrarPanelUser(panelUser);
+				if (panel == null) {
+					panel = new panelChat(panelUser);
+					tabs.add(panel);
+					this.tabbedPaneChat.add(panel.getNome(), panel);
+				}
+				panel.setChat("(" + receivedMessage.time + ") " + receivedMessage.sender + ": " + receivedMessage.payload.toString());
 			}
 		}
 	}
@@ -184,6 +192,7 @@ class UDPClient implements Runnable {
 
 	private panelChat encontrarPanelUser(String nome){
 		for (panelChat tab : tabs) {
+			System.out.println(tab.getNome());
 			if (tab.getNome().equals(nome)) {
 				return tab;
 			}
@@ -191,6 +200,26 @@ class UDPClient implements Runnable {
 
 		return null;
     }
+
+	/**
+	 * Mount the users list with ItemUser class.
+	 * @param users
+	 * @return
+	 */
+	private ArrayList<ItemUser> mountUsersList(ArrayList<String> users) {
+		ArrayList<ItemUser> usersList = new ArrayList<>();
+
+		ItemUser broadcast = new ItemUser("Chat Geral");
+        usersList.add(broadcast);
+		
+		for(String user : users) {
+			if (!user.equals(this.username)) {
+				usersList.add(new ItemUser(user));
+			}
+		}
+
+		return usersList;
+	}
 
 	// Update the news list.
 	private void updateList(ArrayList<ItemUser> users) {
