@@ -175,7 +175,7 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
         try {
-            UDPClient udpClient = new UDPClient(this.getCaminhoCadastro(), Integer.parseInt(this.getPorta()));
+            UDPClient udpClient = new UDPClient(this.getCaminhoCadastro(), Integer.parseInt(this.getPorta()), this.getUsername());
             udpClient.connect();
             Chat telaChat = new Chat(udpClient);
             telaChat.setUserName(usernameField.getText());
@@ -193,7 +193,11 @@ public class Cadastro extends javax.swing.JFrame {
     public String getPorta(){
         return portaField.getText();
     }
-    
+
+    public String getUsername() {
+        return usernameField.getText();
+    }
+
     /**
      * @param args the command line arguments
      */

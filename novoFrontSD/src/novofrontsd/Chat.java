@@ -10,6 +10,9 @@ import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -62,6 +65,20 @@ public class Chat extends javax.swing.JFrame {
         this.udpClient = udpClient;
         initComponents();
         this.listaUsers.setCellRenderer(new ListaUsersCellRenderer());
+        // ArrayList users = new ArrayList<ItemUser>();
+        // ItemUser broadcast = new ItemUser("Chat Geral");
+        // users.add(broadcast);
+        // users.addAll(getUsersList());
+        // this.updateList(users);
+
+        // Start a thread to receive chat messages
+        udpClient.tabs = tabs;
+        udpClient.listaUsers = listaUsers;
+        new Thread(udpClient).start();
+    }
+
+    public void updateUsers() throws Exception 
+    {
         ArrayList users = new ArrayList<ItemUser>();
         ItemUser broadcast = new ItemUser("Chat Geral");
         users.add(broadcast);
@@ -265,9 +282,9 @@ public class Chat extends javax.swing.JFrame {
        // Atualizar o panelChat
        int index = this.tabbedPaneChat.getSelectedIndex();
        String title = this.tabbedPaneChat.getTitleAt(index);
-       panelChat panel = encontrarPanelUser(title);
-       panel.setChat(this.chatField.getText());
-       udpClient.sendMessage();
+    //    panelChat panel = encontrarPanelUser(title);
+    //    panel.setChat(this.chatField.getText());
+       udpClient.sendMessage(this.chatField.getText(), title);
     }//GEN-LAST:event_iconSendMouseClicked
 
     private panelChat encontrarPanelUser(String nome){

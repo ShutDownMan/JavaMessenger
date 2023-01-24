@@ -10,23 +10,40 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 import message.Message;
 import message.MessageType;
 
-class UDPClient {
+class UDPClient implements Runnable {
 
     private int port;
 	private byte[] buf = new byte[5000];
 	private DatagramSocket clientSocket = new DatagramSocket();
 	private InetAddress address;
+	private boolean running = false;
+	public String username;
+	public ArrayList<panelChat> tabs;
+    public JList<ItemUser> listaUsers;
 
-    public UDPClient(String host, int port) throws SocketException, UnknownHostException {
+
+    public UDPClient(String host, int port, String username) throws SocketException, UnknownHostException {
         this.port = port;
 		this.address = InetAddress.getByName(host);
+		this.username = username;
     }
 
+	public void run() {
+		try {
+			receiveMessages();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void connect() throws Exception {
-		Message message = new Message(MessageType.CONTROL, "CONNECT", "casseb", new ArrayList<String>());
+		Message message = new Message(MessageType.CONTROL, "CONNECT", username, new ArrayList<String>());
 
 		DatagramPacket sendPacket = createPacket(message);
 
@@ -37,6 +54,7 @@ class UDPClient {
 
 		clientSocket.setSoTimeout(5000);
 		clientSocket.receive(receivePacket);
+		clientSocket.setSoTimeout(0);
 
 		Message receivedMessage = parsePacket();
 
@@ -50,7 +68,7 @@ class UDPClient {
 	}
 
 	public void disconnet() throws Exception {
-		Message message = new Message(MessageType.CONTROL, "DISCONNECT", "casseb", new ArrayList<String>());
+		Message message = new Message(MessageType.CONTROL, "DISCONNECT", username, new ArrayList<String>());
 
 		DatagramPacket sendPacket = createPacket(message);
 
@@ -68,7 +86,7 @@ class UDPClient {
 
 	public ArrayList<String> listUsers() throws Exception {
         System.out.println("calling listusers");
-		Message message = new Message(MessageType.CONTROL, "LIST", "casseb", new ArrayList<String>());
+		Message message = new Message(MessageType.CONTROL, "LIST", username, new ArrayList<String>());
 
 		DatagramPacket sendPacket = createPacket(message);
 
@@ -86,19 +104,47 @@ class UDPClient {
 		return users;
 	}
 
-	public void sendMessage() {
+	public void receiveMessages() throws Exception {
+		running = true;
+		while (running) {
+			DatagramPacket receivePacket = new DatagramPacket(buf, buf.length);
+			clientSocket.receive(receivePacket);
+
+			Message receivedMessage = parsePacket();
+
+			System.out.println("Mensagem recebida do servidor:" + receivedMessage.toString());
+			
+			// Check if message is control type
+			if (receivedMessage.type == MessageType.CONTROL) {
+				if (receivedMessage.payload.equals("LIST")) {
+					ArrayList<String> users = (ArrayList<String>) receivedMessage.recipients;
+					ArrayList<ItemUser> usersList = new ArrayList<>();
+					for(String user : users) {
+						usersList.add(new ItemUser(user));
+						System.out.println(user);
+					}
+					this.updateList(usersList);
+				}
+			}
+
+			panelChat user = encontrarPanelUser(receivedMessage.sender);
+			if (user != null) {
+				user.setChat(receivedMessage.payload.toString());
+			}
+		}
+	}
+
+	public void sendMessage(String payload, String destination) {
 		try {
 			ArrayList<String> users = new ArrayList<String>();
-			users.add("casseb");
+			users.add(destination);
 
-			Message message = new Message(MessageType.CONTROL, "MESSAGE", "uuuha", users);
+			Message message = new Message(MessageType.TEXT, payload, username, users);
 	
 			DatagramPacket sendPacket = createPacket(message);
 	
 			System.out.println("Enviando mensagem: " + message.toString());
 			clientSocket.send(sendPacket);
-	
-			DatagramPacket receivePacket = new DatagramPacket(buf, buf.length);
 
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -135,4 +181,29 @@ class UDPClient {
 
         return message;
     }
+
+	private panelChat encontrarPanelUser(String nome){
+		for (panelChat tab : tabs) {
+			if (tab.getNome().equals(nome)) {
+				return tab;
+			}
+		}
+
+		return null;
+    }
+
+	// Update the news list.
+	private void updateList(ArrayList<ItemUser> users) {
+		// Cleaning the list.
+		DefaultListModel model = new DefaultListModel();
+		model.clear();
+		this.listaUsers.setModel(model);
+		// Creating the new model.
+		model = new DefaultListModel();
+		int size = users.size();
+		for(int i = 0; i < size; i++) {
+			model.addElement(users.get(i));
+		}
+		this.listaUsers.setModel(model);
+	} 
 }

@@ -59,25 +59,44 @@ public class UDPServer {
      * Parse the message received on UDP packet
      */
     private void handleMessage(DatagramPacket packet, Message message) throws UnknownHostException {
+        switch (message.type) {
+            case CONTROL:
+                handleControlMessage(packet, message);
+                break;
+            case TEXT:
+            handleTextMessage(packet, message);
+                break;
+        }
+
+    }
+
+    private void handleControlMessage(DatagramPacket packet, Message message) throws UnknownHostException {
         // Connection packet
         switch ((String) message.payload) {
             case "CONNECT":
                 System.out.println("Conexão recebida!");
                 handleConnection(packet, message);
                 printClients();
+                sendListMessage();
                 break;
             case "DISCONNECT":
                 handleDisconnection(packet);
                 System.out.println("Desconexão recebida!");
                 printClients();
                 break;
-            case "MESSAGE":
-                System.out.println("Mensagem recebida!");
-                handleChatMessage(packet, message);
-                break;
             case "LIST":
                 System.out.println("Listagem recebida");
                 handleListMessage(packet, message);
+                break;
+        }
+    }
+
+    private void handleTextMessage(DatagramPacket packet, Message message) {
+        switch (message.type) {
+            case TEXT:
+                handleChatMessage(packet, message);
+                break;
+            default:
                 break;
         }
     }
@@ -114,14 +133,34 @@ public class UDPServer {
     }
 
     /**
+     * Send list message to every user
+     */
+    private void sendListMessage() {
+        ArrayList<String> connectedClients = new ArrayList<String>();
+        for ( ServerUDPClient client : clients) {
+            connectedClients.add(client.getUsername());
+        }
+
+        for ( ServerUDPClient client : clients) {
+            sendMessage(new Message(MessageType.CONTROL, "LIST", "SERVER", connectedClients), client.getIpAddress(), client.getPort());
+        }
+    }
+
+    /**
      * Send message to recipients list
      * @param packet
      * @param message
      */
     private void handleChatMessage(DatagramPacket packet, Message message) {
+        boolean broadcast = false;
+        if ( message.recipients.size() == 1 && message.recipients.get(0).equals("Chat Geral") ) {
+            broadcast = true;
+        }
+
         for (String username : message.recipients) {
             for (ServerUDPClient serverClient : clients) {
-                if (serverClient.getUsername().equals(username)) {
+                if (broadcast || serverClient.getUsername().equals(username)) {
+                    System.out.println("Enviando mensagem para " + username);
                     sendMessage(message, serverClient.getIpAddress(), serverClient.getPort());
                 }
             }
@@ -148,7 +187,6 @@ public class UDPServer {
         ByteArrayInputStream byteStream = new ByteArrayInputStream(buf);
         ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
 		
-        System.out.println("We are here!");
         Message message = (Message) is.readObject();
         is.close();
 
