@@ -58,8 +58,7 @@ class UDPClient implements Runnable {
 		clientSocket.setSoTimeout(0);
 
 		Message receivedMessage = parsePacket();
-
-		System.out.println("Mensagem recebida do servidor:" + receivedMessage.toString());
+		receivedMessage.decryptMessage();
 
 		if (receivedMessage.payload.equals("CONNECTED")) {
 			System.out.println("Conectado com sucesso");
@@ -112,6 +111,7 @@ class UDPClient implements Runnable {
 			clientSocket.receive(receivePacket);
 
 			Message receivedMessage = parsePacket();
+			receivedMessage.decryptMessage();
 
 			System.out.println("Mensagem recebida do servidor:" + receivedMessage.toString());
 			

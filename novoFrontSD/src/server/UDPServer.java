@@ -197,6 +197,7 @@ public class UDPServer {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(baos));
 		oos.flush();
+        message.encryptMessage();
 		oos.writeObject(message);
 		oos.flush();
 		byte[] data = baos.toByteArray();
