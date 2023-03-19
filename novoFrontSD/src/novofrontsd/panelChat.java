@@ -17,13 +17,18 @@ public class panelChat extends javax.swing.JPanel {
         initComponents();
         this.labelUser.setText(nome);
     }
-    
+
     public void setChat(String text){
         this.chatArea.setText(text);
     }
-    
+
     public String getNome(){
         return this.labelUser.getText();
+    }
+
+    public void addChat(String sender, String text){
+        // name: \n text
+        this.chatArea.setText(this.chatArea.getText() + "\n" + sender + ": \n" + text);
     }
 
     /**

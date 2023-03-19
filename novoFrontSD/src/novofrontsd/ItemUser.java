@@ -13,7 +13,7 @@ public class ItemUser {
     
     public ItemUser(String nome){
         String caminho = new File("").getAbsolutePath();
-        caminho += "\\src\\resources\\iconUsers2.png";
+        caminho += "/src/resources/iconUsers2.png";
         this.nomeUser = nome;
         this.caminhoIcon = caminho;
     }
@@ -28,5 +28,9 @@ public class ItemUser {
     
     public void setNome(String nome){
         this.nomeUser = nome;
+    }
+
+    public String ToString(){
+        return String.format("Nome: %s | caminho: %s", nomeUser, caminhoIcon);
     }
 }
