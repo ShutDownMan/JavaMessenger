@@ -28,7 +28,9 @@ public class panelChat extends javax.swing.JPanel {
 
     public void addChat(String sender, String text){
         // name: \n text
-        this.chatArea.setText(this.chatArea.getText() + "\n" + sender + ": \n" + text);
+        String currentTimestamp = new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+        String chatMessage = currentTimestamp + " " + sender + ": " + text;
+        this.chatArea.setText(this.chatArea.getText() + "\n" + chatMessage);
     }
 
     /**

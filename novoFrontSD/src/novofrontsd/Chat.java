@@ -11,8 +11,10 @@ import java.awt.Image;
 import java.io.EOFException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -110,6 +112,29 @@ public class Chat extends javax.swing.JFrame {
             return null;
 
         };
+        Function <Message, Void> handleBroadcastText = (Message m) -> {
+            String sender = m.getSender();
+            String text = (String) m.getPayload();
+
+            for (panelChat tab : tabs) {
+                if (tab.getNome().equals("Chat Geral")) {
+                    // decrypt text before appending to chat
+                    String decryptedText = MessageEncryption.decrypt(text, "KEY");
+
+                    // append text to chat
+                    tab.addChat(sender, decryptedText);
+                    return null;
+                }
+            }
+
+            // panelChat newTab = new panelChat(this.currentUser, new ItemUser(sender), this.client);
+            // newTab.addMessage(sender, text);
+            // this.tabs.add(newTab);
+            // this.jTabbedPane1.addTab(sender, newTab);
+
+            return null;
+
+        };
         // add a callback to the client to handle the list of users
         Function<Message, Void> listUsersCallback = (Message m) -> {
             ArrayList<String> loadedUsers = (ArrayList<String>) m.getPayload();
@@ -142,6 +167,7 @@ public class Chat extends javax.swing.JFrame {
         };
         // generate an event when the list is received
         client.addOn(MessageType.TEXT, handleText);
+        client.addOn(MessageType.TEXT_BROADCAST, handleBroadcastText);
         client.addOn(MessageType.LIST_OF_USERS, listUsersCallback);
         client.addOn(MessageType.CONNECTED, connectCallback);
     }
@@ -343,21 +369,34 @@ public class Chat extends javax.swing.JFrame {
         int index = this.tabbedPaneChat.getSelectedIndex();
         String title = this.tabbedPaneChat.getTitleAt(index);
         panelChat panel = encontrarPanelUser(title);
-        // panel.setChat(this.chatField.getText());
+
+        if(this.chatField.getText() == null || this.chatField.getText().equals("")){
+            return;
+        }
+
+        // add the message to the panel
+        panel.addChat(this.currentUser.getNome(), this.chatField.getText());
 
         // recipients
         ArrayList<String> recipients = new ArrayList<>();
 
+        // check if Chat Geral is selected
+        List<String> selectedUsers = this.listaUsers.getSelectedValuesList().stream().map(ItemUser::getNome).collect(Collectors.toList());
+
+        MessageType messageType = MessageType.TEXT;
+        if(selectedUsers.contains("Chat Geral"))
+            messageType = MessageType.TEXT_BROADCAST;
+
         // add each one selected
-        for (int i = 0; i < this.listaUsers.getSelectedValuesList().size(); i++) {
-            recipients.add(this.listaUsers.getSelectedValuesList().get(i).getNome());
+        for (String user : selectedUsers) {
+            recipients.add(user);
         }
 
         // encrypt the message before sending
         String encryptedMessage = MessageEncryption.encrypt(this.chatField.getText(), "KEY");
 
         // Criar a mensagem
-        Message msg = new Message(MessageType.TEXT, encryptedMessage, this.currentUser.getNome(), recipients);
+        Message msg = new Message(messageType, encryptedMessage, this.currentUser.getNome(), recipients);
 
         // Enviar a mensagem para o servidor
         try {

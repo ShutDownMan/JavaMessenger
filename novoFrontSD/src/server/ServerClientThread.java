@@ -89,6 +89,9 @@ class ServerClientThread extends Thread {
             case TEXT:
                 handleTextMessage(message);
                 break;
+            case TEXT_BROADCAST:
+                handleTextBroadcastMessage(message);
+                break;
             case CONNECT:
                 handleConnectMessage(message);
                 break;
@@ -156,6 +159,32 @@ class ServerClientThread extends Thread {
                 validRecipients.add(recipient);
             }
         }
+
+        message.recipients = validRecipients;
+
+        try {
+            tcpServer.sendMessage(message);
+        } catch (EOFException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleTextBroadcastMessage(Message message) {
+        /// get client names
+        HashMap<String, ServerClientThread> clients = tcpServer.getClients();
+
+        /// filter recipients
+        ArrayList<String> validRecipients = new ArrayList<String>();
+
+        /// add all clients to recipients
+        for (String recipient : clients.keySet()) {
+            if (!recipient.equals(message.sender))
+                validRecipients.add(recipient);
+        }
+
+        message.recipients = validRecipients;
 
         try {
             tcpServer.sendMessage(message);

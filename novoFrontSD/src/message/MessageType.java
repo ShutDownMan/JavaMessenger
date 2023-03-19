@@ -8,4 +8,5 @@ public enum MessageType {
     TEXT,
     LIST_USERS,
     LIST_OF_USERS,
+    TEXT_BROADCAST,
 }
